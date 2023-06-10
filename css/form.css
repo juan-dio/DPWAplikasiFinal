@@ -102,15 +102,21 @@ select {
 }
 
 /* pesan error form */
-.error-msg {
-  width: 50%;
+.error-name, 
+.error-email, 
+.error-tel, 
+.error-nat, 
+.error-idtype, 
+.error-idnum, 
+.error-roomtype, 
+.error-addservice, 
+.error-checkin, 
+.error-checkout, 
+.error-radio, 
+.error-checkbox {
   font-size: 13px;
-  margin-top: 20px;
-  padding: 10px;
-  color: #820900;
-  border: 1px solid #820900;
-  background-color: rgba(255, 170, 170, 0.75);
-  border-radius: 8px;
+  padding: 0 5px;
+  color: #680700;
   display: none;
 }
 
