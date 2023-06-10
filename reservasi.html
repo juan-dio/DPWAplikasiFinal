@@ -33,21 +33,24 @@
         </div>
         <div class="form-section">
           <header class="form-header">Reservasi</header>
-          <form action="#" method="post" onsubmit="return formValidation()">
+          <form action="#" method="post" name="reservation" onsubmit="return formValidation()">
             <div class="form-title">
               <span class="form-details">Personal Detail</span>
               <div class="form-fields">
                 <div class="input-field">
                   <label for="name">Nama Lengkap</label>
                   <input type="text" name="name" id="name" placeholder="Masukan Nama Anda" />
+                  <div class="error-name"></div>
                 </div>
                 <div class="input-field">
                   <label for="email">Email</label>
                   <input type="text" name="email" id="email" placeholder="Email" />
+                  <div class="error-email"></div>
                 </div>
                 <div class="input-field">
                   <label for="telepon">Nomor Telepon</label>
                   <input type="text" name="telepon" id="telepon" placeholder="Nomor Telepon" />
+                  <div class="error-tel"></div>
                 </div>
                 <div class="input-field">
                   <label for="nationality">Nationality</label>
@@ -56,20 +59,23 @@
                     <option>WNI</option>
                     <option>WNA / Asing</option>
                   </select>
+                  <div class="error-nat"></div>
                 </div>
                 <div class="input-field">
-                  <label for="id-type-PD">Id type</label>
-                  <select id="id-type-PD">
+                  <label for="id-type">Id type</label>
+                  <select id="id-type">
                     <option disabled selected>Select Id Type</option>
                     <option>Identity Card</option>
                     <option>Driver Lisence</option>
                     <option>Pasport</option>
                     <option>Others</option>
                   </select>
+                  <div class="error-idtype"></div>
                 </div>
                 <div class="input-field">
-                  <label for="id-num-PD">ID number</label>
-                  <input type="text" name="id-num" id="id-num-PD" placeholder="Enter ID Number" />
+                  <label for="id-num">ID number</label>
+                  <input type="text" name="id-num" id="id-num" placeholder="Enter ID Number" />
+                  <div class="error-idnum"></div>
                 </div>
               </div>
             </div>
@@ -85,6 +91,7 @@
                     <option>Room 3</option>
                     <option>Room 4</option>
                   </select>
+                  <div class="error-roomtype"></div>
                 </div>
                 <div class="input-field">
                   <label for="add-service">Additional Service</label>
@@ -94,14 +101,17 @@
                     <option>Breakfast set</option>
                     <option>Premium Service</option>
                   </select>
+                  <div class="error-addservice"></div>
                 </div>
                 <div class="input-field">
                   <label for="check-in">Check-in</label>
                   <input type="date" id="check-in" />
+                  <div class="error-checkin"></div>
                 </div>
                 <div class="input-field">
                   <label for="check-out">Check-out</label>
                   <input type="date" id="check-out" />
+                  <div class="error-checkout"></div>
                 </div>
                 <div class="input-field-textarea">
                   <label for="keterangan">Keterangan Tambahan</label>
@@ -111,7 +121,7 @@
                   <div class="radio-button-title">Invoice Akan Dikirimkan Melalui :</div>
                   <div class="radio-button-field">
                     <label class="radio-button">
-                      <input type="radio" name="radio" checked />
+                      <input type="radio" name="radio" />
                       <span>Email</span>
                     </label>
                     <label class="radio-button">
@@ -119,12 +129,14 @@
                       <span>Nomor Telepon</span>
                     </label>
                   </div>
+                  <div class="error-radio"></div>
                 </div>
                 <div class="check-box-cont">
                   <label class="check-box">
                     <input type="checkbox" name="checkbox" />
                     Setuju Dengan Syarat Dan Ketentuan Yang Berlaku
                   </label>
+                  <div class="error-checkbox"></div>
                 </div>
                 <div class="error-msg"></div>
                 <div class="form-btn-cont">
