@@ -1,4 +1,17 @@
-const errorMsg = document.querySelector(".error-msg");
+// elemen HTML penampil pesan error
+var errorName = document.querySelector('.error-name');
+var errorEmail = document.querySelector('.error-email');
+var errorTel = document.querySelector('.error-tel');
+var errorNat = document.querySelector('.error-nat');
+var errorIdtype = document.querySelector('.error-idtype');
+var errorIdnum = document.querySelector('.error-idnum');
+var errorRoomtype = document.querySelector('.error-roomtype');
+var errorAddservice = document.querySelector('.error-addservice');
+var errorCheckin = document.querySelector('.error-checkin');
+var errorCheckout = document.querySelector('.error-checkout');
+var errorRadio = document.querySelector('.error-radio');
+var errorCheckbox = document.querySelector('.error-checkbox');
+
 
 // cek apakah form sudah terisi
 function checkFill(inputValue) {
@@ -10,7 +23,7 @@ function checkFill(inputValue) {
 
 // cek apakah isi form menggunakan alfabet dan spasi
 function isAlphabet(inputValue) {
-  const pattern = /^[A-z\s]+$/;
+  var pattern = /^[A-z\s]+$/;
   if (!pattern.test(inputValue)) {
     return false;
   }
@@ -19,17 +32,8 @@ function isAlphabet(inputValue) {
 
 // cek apakah isi form menggunakan numerik
 function isNumeric(inputValue) {
-  const pattern = /^\d+$/;
-  if (!pattern.test(inputValue)) {
-    return false;
-  }
-  return true;
-}
-
-// cek apakah isi form menggunakan alfanumerik
-function isAlphaNumeric(inputValue) {
-  const pattern = /^[A-z0-9]+$/;
-  if (!pattern.test(inputValue)) {
+  var pattern = /^\d+$/;
+  if(!pattern.test(inputValue)) {
     return false;
   }
   return true;
@@ -45,7 +49,7 @@ function isIdDigit(inputValue) {
 
 // cek apakah isi form sudah sesuai dengan format nomor telepon
 function isTelpFormat(inputValue) {
-  const telPattern = /^(\+\d{1,3}[\s\.-]?)?\(?\d{3,4}\)?[\s\.-]?\d{3,4}[\s\.-]?\d{3,4}$/;
+  var telPattern = /^(\+\d{1,3}[\s.-]?)?\(?\d{3,4}\)?[\s.-]?\d{3,4}[\s.-]?\d{3,4}$/;
   if (!telPattern.test(inputValue)) {
     return false;
   }
@@ -54,7 +58,7 @@ function isTelpFormat(inputValue) {
 
 // cek apakah isi form sudah sesuai dengan format email
 function isEmailFormat(inputValue) {
-  const emailPattern = /^[\w\.-]{2,}@([\w-]{2,}\.)+[\w-]{2,}$/;
+  var emailPattern = /^[\w\.-]{2,}@([\w-]{2,}\.)+[\w-]{2,}$/;
   if (!emailPattern.test(inputValue)) {
     return false;
   }
@@ -63,20 +67,21 @@ function isEmailFormat(inputValue) {
 
 // cek apakah checkbox sudah di check
 function isCheckedCheckbox(check) {
-  if (!check.checked) {
+  if(!check.checked) {
+    errorCheckbox.innerHTML = "Mohon setujui persyaratan yang berlaku sebelum melakukan reservasi.";
     return false;
   }
   return true;
 }
 
-// cek apakah radiobutton sudah ada yg dipilih
+// cek apakah radiobutton sudah ada yg dipilih. parameter type data array
 function isCheckedRadio(radio) {
-  for (let i = 0; i < radio.length; i++) {
-    if (radio[i].checked) {
+  for( var i = 0; i < radio.length; i++ ) {
+    if(radio[i].checked) {
       break;
     }
-    if (i == struk.length - 1) {
-      alert("isi radio");
+    if( i == radio.length-1) {
+      errorRadio.innerHTML = "Mohon pilih tujuan invoice.";
       return false;
     }
   }
@@ -87,13 +92,11 @@ function isCheckedRadio(radio) {
 // cek form nama
 function checkName(name) {
   if (!checkFill(name)) {
-    errorMsg.innerHTML = "Mohon isi nama lengkap anda terlebih dahulu.";
-    errorMsg.style.display = "block";
+    errorName.innerHTML = "Mohon isi nama lengkap anda terlebih dahulu.";
     return false;
   }
   if (!isAlphabet(name)) {
-    errorMsg.innerHTML = "Mohon isi nama lengkap dengan benar.";
-    errorMsg.style.display = "block";
+    errorName.innerHTML = "Mohon isi nama lengkap dengan benar.";
     return false;
   }
 
@@ -103,13 +106,11 @@ function checkName(name) {
 // cek form email
 function checkEmail(email) {
   if (!checkFill(email)) {
-    errorMsg.innerHTML = "Mohon isi alamat email anda terlebih dahulu.";
-    errorMsg.style.display = "block";
+    errorEmail.innerHTML = "Mohon isi alamat email anda terlebih dahulu.";
     return false;
   }
   if (!isEmailFormat(email)) {
-    errorMsg.innerHTML = "Mohon isi email yang benar.<br>Contoh: foo@example.com atau bar@example.nom.za";
-    errorMsg.style.display = "block";
+    errorEmail.innerHTML = "Mohon isi email yang benar. Contoh: foo@example.com atau bar@example.nom.za";
     return false;
   }
 
@@ -119,13 +120,11 @@ function checkEmail(email) {
 // cek form nomor telepon
 function checkTelp(telp) {
   if (!checkFill(telp)) {
-    errorMsg.innerHTML = "Mohon isi nomor telepon anda terlebih dahulu.";
-    errorMsg.style.display = "block";
+    errorTel.innerHTML = "Mohon isi nomor telepon anda terlebih dahulu.";
     return false;
   }
   if (!isTelpFormat(telp)) {
-    errorMsg.innerHTML = "Mohon isi nomor telepon dengan benar.<br>Contoh: +62 (XXX) XXXX-XXXX, +62-XXX-XXXX-XXXX, +62XXXXXXXXXXX, XXXX-XXXX-XXXX, XXXXXXXXXXXX";
-    errorMsg.style.display = "block";
+    errorTel.innerHTML = "Mohon isi nomor telepon dengan benar. Contoh: +62 XXXXXXXXXX, +62-XXX-XXXX-XXXX, XXXX-XXXX-XXXX, XXXXXXXXXXXX";
     return false;
   }
 
@@ -135,8 +134,7 @@ function checkTelp(telp) {
 // cek form nationality
 function checkNat(nat) {
   if (nat == "Select Nationality") {
-    errorMsg.innerHTML = "Mohon pilih kewarganegaraan anda.";
-    errorMsg.style.display = "block";
+    errorNat.innerHTML = "Mohon pilih kewarganegaraan anda.";
     return false;
   }
 
@@ -146,8 +144,7 @@ function checkNat(nat) {
 // cek form id type
 function checkIdType(idType) {
   if (idType == "Select Id Type") {
-    errorMsg.innerHTML = "Mohon pilih tipe ID anda.";
-    errorMsg.style.display = "block";
+    errorIdtype.innerHTML = "Mohon pilih tipe ID anda.";
     return false;
   }
 
@@ -157,8 +154,7 @@ function checkIdType(idType) {
 // cek form room type
 function checkRoomType(roomType) {
   if (roomType == "Select Room Type") {
-    errorMsg.innerHTML = "Mohon pilih tipe ruangan anda.";
-    errorMsg.style.display = "block";
+    errorRoomtype.innerHTML = "Mohon pilih tipe ruangan anda.";
     return false;
   }
 
@@ -168,8 +164,7 @@ function checkRoomType(roomType) {
 // cek form additional service
 function checkAddService(addService) {
   if (addService == "Select Additional Service") {
-    errorMsg.innerHTML = "Mohon pilih layanan tambahan.";
-    errorMsg.style.display = "block";
+    errorAddservice.innerHTML = "Mohon pilih layanan tambahan.";
     return false;
   }
 
@@ -179,18 +174,15 @@ function checkAddService(addService) {
 // cek form nomor id
 function checkId(idNum) {
   if (!checkFill(idNum)) {
-    errorMsg.innerHTML = "Mohon isi nomor ID anda terlebih dahulu.";
-    errorMsg.style.display = "block";
+    errorIdnum.innerHTML = "Mohon isi nomor ID anda terlebih dahulu.";
     return false;
   }
   if (!isNumeric(idNum)) {
-    errorMsg.innerHTML = "Mohon isi nomor ID dengan menggunakan angka.";
-    errorMsg.style.display = "block";
+    errorIdnum.innerHTML = "Mohon isi nomor ID dengan menggunakan angka.";
     return false;
   }
   if (!isIdDigit(idNum)) {
-    errorMsg.innerHTML = "Mohon isi nomor ID dengan 16 digit.";
-    errorMsg.style.display = "block";
+    errorIdnum.innerHTML = "Mohon isi nomor ID dengan 16 digit.";
     return false;
   }
 
@@ -200,12 +192,12 @@ function checkId(idNum) {
 // cek form tanggal check in
 function checkDateCI(checkIn) {
   if (!checkFill(checkIn)) {
-    errorMsg.innerHTML = "Mohon isi tanggal check-in.";
-    errorMsg.style.display = "block";
+    errorCheckin.innerHTML = "Mohon isi tanggal check-in.";
     return false;
   }
 
   var arrCheckIn = checkIn.split("-");
+  // yyyy-mm-dd
 
   var date = new Date();
   var thisDate = date.getDate();
@@ -213,18 +205,25 @@ function checkDateCI(checkIn) {
   var thisYear = date.getFullYear();
 
   if (parseInt(arrCheckIn[0]) < thisYear) {
-    errorMsg.innerHTML = "Tidak dapat memilih tanggal check-in pada waktu yang sudah lampau.";
-    errorMsg.style.display = "block";
+    errorCheckin.innerHTML =
+      "Tidak dapat memilih tanggal check-in pada waktu yang sudah lampau.";
     return false;
   }
-  if (parseInt(arrCheckIn[0]) == thisYear && parseInt(arrCheckIn[1]) < thisMonth) {
-    errorMsg.innerHTML = "Tidak dapat memilih tanggal check-in pada waktu yang sudah lampau.";
-    errorMsg.style.display = "block";
+  if (
+    parseInt(arrCheckIn[0]) == thisYear &&
+    parseInt(arrCheckIn[1]) < thisMonth
+  ) {
+    errorCheckin.innerHTML =
+      "Tidak dapat memilih tanggal check-in pada waktu yang sudah lampau.";
     return false;
   }
-  if (parseInt(arrCheckIn[0]) == thisYear && parseInt(arrCheckIn[1]) == thisMonth && parseInt(arrCheckIn[2]) < thisDate) {
-    errorMsg.innerHTML = "Tidak dapat memilih tanggal check-in pada waktu yang sudah lampau.";
-    errorMsg.style.display = "block";
+  if (
+    parseInt(arrCheckIn[0]) == thisYear &&
+    parseInt(arrCheckIn[1]) == thisMonth &&
+    parseInt(arrCheckIn[2]) < thisDate
+  ) {
+    errorCheckin.innerHTML =
+      "Tidak dapat memilih tanggal check-in pada waktu yang sudah lampau.";
     return false;
   }
 
@@ -234,8 +233,7 @@ function checkDateCI(checkIn) {
 // cek form tanggal check out
 function checkDateCO(checkIn, checkOut) {
   if (!checkFill(checkOut)) {
-    errorMsg.innerHTML = "Mohon isi tanggal check-out.";
-    errorMsg.style.display = "block";
+    errorCheckout.innerHTML = "Mohon isi tanggal check-out.";
     return false;
   }
 
@@ -243,23 +241,33 @@ function checkDateCO(checkIn, checkOut) {
   var arrCheckOut = checkOut.split("-");
 
   if (parseInt(arrCheckIn[0]) > parseInt(arrCheckOut[0])) {
-    errorMsg.innerHTML = "Tidak dapat memilih tanggal check-out sebelum tanggal check-in.";
-    errorMsg.style.display = "block";
+    errorCheckout.innerHTML =
+      "Tidak dapat memilih tanggal check-out sebelum tanggal check-in.";
     return false;
   }
-  if (parseInt(arrCheckIn[0]) == parseInt(arrCheckOut[0]) && parseInt(arrCheckIn[1]) > parseInt(arrCheckOut[1])) {
-    errorMsg.innerHTML = "Tidak dapat memilih tanggal check-out sebelum tanggal check-in.";
-    errorMsg.style.display = "block";
+  if (
+    parseInt(arrCheckIn[0]) == parseInt(arrCheckOut[0]) &&
+    parseInt(arrCheckIn[1]) > parseInt(arrCheckOut[1])
+  ) {
+    errorCheckout.innerHTML =
+      "Tidak dapat memilih tanggal check-out sebelum tanggal check-in.";
     return false;
   }
-  if (parseInt(arrCheckIn[0]) == parseInt(arrCheckOut[0]) && parseInt(arrCheckIn[1]) == parseInt(arrCheckOut[1]) && parseInt(arrCheckIn[2]) > parseInt(arrCheckOut[2])) {
-    errorMsg.innerHTML = "Tidak dapat memilih tanggal check-out sebelum tanggal check-in.";
-    errorMsg.style.display = "block";
+  if (
+    parseInt(arrCheckIn[0]) == parseInt(arrCheckOut[0]) &&
+    parseInt(arrCheckIn[1]) == parseInt(arrCheckOut[1]) &&
+    parseInt(arrCheckIn[2]) > parseInt(arrCheckOut[2])
+  ) {
+    errorCheckout.innerHTML =
+      "Tidak dapat memilih tanggal check-out sebelum tanggal check-in.";
     return false;
   }
-  if (parseInt(arrCheckIn[0]) == parseInt(arrCheckOut[0]) && parseInt(arrCheckIn[1]) == parseInt(arrCheckOut[1]) && parseInt(arrCheckIn[2]) == parseInt(arrCheckOut[2])) {
-    errorMsg.innerHTML = "Pemesanan dapat dilakukan minimal satu malam.";
-    errorMsg.style.display = "block";
+  if (
+    parseInt(arrCheckIn[0]) == parseInt(arrCheckOut[0]) &&
+    parseInt(arrCheckIn[1]) == parseInt(arrCheckOut[1]) &&
+    parseInt(arrCheckIn[2]) == parseInt(arrCheckOut[2])
+  ) {
+    errorCheckout.innerHTML = "Pemesanan dapat dilakukan minimal satu malam.";
     return false;
   }
 
@@ -268,132 +276,146 @@ function checkDateCO(checkIn, checkOut) {
 
 // fungsi validasi form
 function formValidation() {
+  // variabel penampung nilai form, type data boolean (true/false)
+  var result = true;
+
   // validasi nama
-  let name = document.getElementById("name");
-  let nameValue = name.value;
+  var name = document.getElementById("name");
+  var nameValue = name.value;
   if (!checkName(nameValue)) {
     name.style.border = "1px solid #f74040";
-    return false;
+    errorName.style.display = "block";
+    result = false;
+  } else {
+    name.style.border = "1px solid #1dbf73";
+    errorName.style.display = "none";
   }
-  name.style.border = "1px solid #1dbf73";
 
   // validasi email
-  let email = document.getElementById("email");
-  let emailValue = email.value;
+  var email = document.getElementById("email");
+  var emailValue = email.value;
   if (!checkEmail(emailValue)) {
     email.style.border = "1px solid #f74040";
-    return false;
-  }
-  email.style.border = "1px solid #1dbf73";
+    errorEmail.style.display = "block";
+    result = false;
+  } else {
+    email.style.border = "1px solid #1dbf73";
+    errorEmail.style.display = "none";
+  } 
 
   // validasi nomor telepon
-  let telp = document.getElementById("telepon");
-  let telpValue = telp.value;
+  var telp = document.getElementById("telepon");
+  var telpValue = telp.value;
   if (!checkTelp(telpValue)) {
     telp.style.border = "1px solid #f74040";
-    return false;
-  }
-  telp.style.border = "1px solid #1dbf73";
+    errorTel.style.display = "block";
+    result = false;
+  } else {
+    telp.style.border = "1px solid #1dbf73";
+    errorTel.style.display = "none";
+  } 
 
   // validasi nationality
-  let nat = document.getElementById("nationality");
-  let natValue = nat.value;
+  var nat = document.getElementById("nationality");
+  var natValue = nat.value;
   if (!checkNat(natValue)) {
     nat.style.border = "1px solid #f74040";
-    return false;
+    errorNat.style.display = "block";
+    result = false;
+  } else {
+    nat.style.border = "1px solid #1dbf73";
+    errorNat.style.display = "none";
   }
-  nat.style.border = "1px solid #1dbf73";
 
   // validasi id type personal detail
-  let idTypePD = document.getElementById("id-type-PD");
-  let idTypePDValue = idTypePD.value;
-  if (!checkIdType(idTypePDValue)) {
-    idTypePD.style.border = "1px solid #f74040";
-    return false;
+  var idType = document.getElementById("id-type");
+  var idTypeValue = idType.value;
+  if (!checkIdType(idTypeValue)) {
+    idType.style.border = "1px solid #f74040";
+    errorIdtype.style.display = "block";
+    result = false;
+  } else {
+    idType.style.border = "1px solid #1dbf73";
+    errorIdtype.style.display = "none";
   }
-  idTypePD.style.border = "1px solid #1dbf73";
 
   // validasi nomor id personal detail
-  let idNumPD = document.getElementById("id-num-PD");
-  let idNumPDValue = idNumPD.value;
-  if (!checkId(idNumPDValue)) {
-    idNumPD.style.border = "1px solid #f74040";
-    return false;
+  var idNum = document.getElementById("id-num");
+  var idNumValue = idNum.value;
+  if (!checkId(idNumValue)) {
+    idNum.style.border = "1px solid #f74040";
+    errorIdnum.style.display = "block";
+    result = false;
+  } else {
+    idNum.style.border = "1px solid #1dbf73";
+    errorIdnum.style.display = "none";
   }
-  idNumPD.style.border = "1px solid #1dbf73";
 
   // validasi room type
-  let roomType = document.getElementById("room-type");
-  let roomTypeValue = roomType.value;
+  var roomType = document.getElementById("room-type");
+  var roomTypeValue = roomType.value;
   if (!checkRoomType(roomTypeValue)) {
     roomType.style.border = "1px solid #f74040";
-    return false;
+    errorRoomtype.style.display = "block";
+    result = false;
+  } else {
+    roomType.style.border = "1px solid #1dbf73";
+    errorRoomtype.style.display = "none";
   }
-  roomType.style.border = "1px solid #1dbf73";
+
+    // validasi additional service
+    var addService = document.getElementById("add-service");
+    var addServiceValue = addService.value;
+    if (!checkAddService(addServiceValue)) {
+      addService.style.border = "1px solid #f74040";
+      errorAddservice.style.display = "block";
+      result = false;
+    } else {
+      addService.style.border = "1px solid #1dbf73";
+      errorAddservice.style.display = "none";
+    }
 
   // validasi tanggal check in
-  let checkIn = document.getElementById("check-in");
-  let checkInValue = checkIn.value;
+  var checkIn = document.getElementById("check-in");
+  var checkInValue = checkIn.value;
   if (!checkDateCI(checkInValue)) {
     checkIn.style.border = "1px solid #f74040";
-    return false;
+    errorCheckin.style.display = "block";
+    result = false;
+  } else {
+    checkIn.style.border = "1px solid #1dbf73";
+    errorCheckin.style.display = "none";
   }
-  checkIn.style.border = "1px solid #1dbf73";
 
   // validasi tanggal check out
-  let checkOut = document.getElementById("check-out");
-  let checkOutValue = checkOut.value;
+  var checkOut = document.getElementById("check-out");
+  var checkOutValue = checkOut.value;
   if (!checkDateCO(checkInValue, checkOutValue)) {
     checkOut.style.border = "1px solid #f74040";
-    return false;
+    errorCheckout.style.display = "block";
+    result = false;
+  } else {
+    checkOut.style.border = "1px solid #1dbf73";
+    errorCheckout.style.display = "none";
   }
-  checkOut.style.border = "1px solid #1dbf73";
 
-  // validasi additional service
-  let addService = document.getElementById("add-service");
-  let addServiceValue = addService.value;
-  if (!checkAddService(addServiceValue)) {
-    addService.style.border = "1px solid #f74040";
-    return false;
+  // validasi radio
+  var radio = document.reservation.radio;
+  if (!isCheckedRadio(radio)) {
+    errorRadio.style.display = "block";
+    result = false;
+  } else {
+    errorRadio.style.display = "none";
   }
-  addService.style.border = "1px solid #1dbf73";
 
-  // validasi id type book detail
-  let idTypeBD = document.getElementById("id-type-BD");
-  let idTypeBDValue = idTypeBD.value;
-  if (!checkIdType(idTypeBDValue)) {
-    idTypeBD.style.border = "1px solid #f74040";
-    return false;
+    // validasi checkbox
+  var checkbox = document.reservation.checkbox;
+  if (!isCheckedCheckbox(checkbox)) {
+    errorCheckbox.style.display = "block";
+    result = false;
+  } else {
+    errorCheckbox.style.display = "none";
   }
-  idTypeBD.style.border = "1px solid #1dbf73";
 
-  // validasi nomor id book detail
-  let idNumBD = document.getElementById("id-num-BD");
-  let idNumBDValue = idNumBD.value;
-  if (!checkId(idNumBDValue)) {
-    idNumBD.style.border = "1px solid #f74040";
-    return false;
-  }
-  idNumBD.style.border = "1px solid #1dbf73";
-
-  //   // validasi checkbox
-  //   let checkbox = document.reservation.checkbox;
-  //   if(!reservation.checkbox.checked) {
-  //     alert('isi checkbox');
-  //     return false;
-  //   }
-
-  //   // validasi radio
-  //   let struk = document.reservation.struk;
-  //   for( let i = 0; i < struk.length; i++ ) {s
-  //     if(struk[i].checked) {
-  //       break;
-  //     }
-  //     if( i == struk.length-1) {
-  //       alert('isi radio');
-  //       return false;
-  //     }
-  //   }
-
-  return true;
+  return result;
 }
